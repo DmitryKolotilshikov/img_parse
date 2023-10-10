@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>img parse</title>
+    <style>
+      #imgContainer {
+        max-width: 300px;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #imgContainer img {
+        max-height: 300px;
+        height: 100%;
+        rotate: z 90deg;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="file" />
+
+    <div id="imgContainer">
+    </div>
+
+    <script>
+      const input = document.getElementById("file");
+      const imgContainer = document.getElementById("imgContainer");
+
+      input.addEventListener("change", async (e) => {
+        const selectedFile = event.target.files;
+
+        if (selectedFile.length > 0) {
+          const [imageFile] = selectedFile;
+
+          const fileReader = new FileReader();
+
+          fileReader.onload = () => {
+            const srcData = fileReader.result;
+            const img = new Image();
+            img.src = srcData;
+            imgContainer.append(img);
+            console.log("base64:", srcData);
+          };
+
+          fileReader.readAsDataURL(imageFile);
+        }
+      });
+    </script>
+  </body>
+</html>
