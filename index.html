@@ -23,10 +23,9 @@
     </style>
   </head>
   <body>
-    <input type="file" id="file" />
+    <input type="file" id="file" accept="image/*"/>
 
-    <div id="imgContainer">
-    </div>
+    <div id="imgContainer"></div>
 
     <script>
       const input = document.getElementById("file");
@@ -37,18 +36,22 @@
 
         if (selectedFile.length > 0) {
           const [imageFile] = selectedFile;
+          const isImageType = imageFile.type.startsWith("image");
 
-          const fileReader = new FileReader();
+          if (isImageType) {
+            const fileReader = new FileReader();
 
-          fileReader.onload = () => {
-            const srcData = fileReader.result;
-            const img = new Image();
-            img.src = srcData;
-            imgContainer.append(img);
-            console.log("base64:", srcData);
-          };
+            fileReader.onload = () => {
+              const srcData = fileReader.result;
+              const img = new Image();
+              img.src = srcData;
 
-          fileReader.readAsDataURL(imageFile);
+              imgContainer.innerHTML = '';
+              imgContainer.append(img);
+            };
+
+            fileReader.readAsDataURL(imageFile);
+          }
         }
       });
     </script>
