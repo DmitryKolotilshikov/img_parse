@@ -1,7 +1,7 @@
 const input = document.getElementById("file");
 const imgContainer = document.getElementById("imgContainer");
 
-input.addEventListener("change", async (e) => {
+input.addEventListener("change", (e) => {
     const selectedFile = e.target.files;
 
     if (selectedFile.length > 0) {
